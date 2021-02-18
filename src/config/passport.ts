@@ -21,21 +21,18 @@ passport.deserializeUser((id, done) => {
 /**
  * Sign in using Email and Password.
  */
-passport.use(new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
+passport.use( 'local',new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
     User.findOne({ email: email.toLowerCase() }, (err, user: any) => {
-        if (err) { return done(err); console.log(err);}
+        if (err) { return done(err);}
         if (!user) {
-            console.log("email not found");
             return done(undefined, false, { message: `Email ${email} not found.` });
         }
         user.comparePassword(password, (err: Error, isMatch: boolean) => {
             if (err) { return done(err); }
             if (isMatch) {
-                console.log("All clear");
                 return done(undefined, user);
             }
 
-            console.log("invalid email or password");
             return done(undefined, false, { message: "Invalid email or password." });
         });
     });
@@ -61,6 +58,7 @@ passport.use(new LocalStrategy({ usernameField: "email" }, (email, password, don
  * Login Required middleware.
  */
 export const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
+
     if (req.isAuthenticated()) {
         return next();
     }

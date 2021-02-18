@@ -15,6 +15,9 @@ const prod = ENVIRONMENT === "production"; // Anything else is treated as 'dev'
 export const SESSION_SECRET = process.env["SESSION_SECRET"];
 export const MONGODB_URI = prod ? process.env["MONGODB_URI"] : process.env["MONGODB_URI_LOCAL"];
 
+export const RAPID_API_KEY = process.env["RAPID_API_KEY"];
+export const COVID_19_API_URL = process.env["COVID_19_API_URL"];
+
 if (!SESSION_SECRET) {
     logger.error("No client secret. Set SESSION_SECRET environment variable.");
     process.exit(1);
