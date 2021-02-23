@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import * as loginController from "./controllers/login";
 import * as dashboardController from "./controllers/dashboard";
+import * as country from "./controllers/country";
 import flash from "express-flash";
 import passport from "passport";
 import session from "express-session";
@@ -56,6 +57,7 @@ app.use((req, res, next) => {
 app.post("/login", loginController.postLogin);
 app.post("/logout", loginController.postLogOut);
 app.post("/register", loginController.postSignup);
+app.get("/add", country.addCountry);
 app.get("/dashboard", passportConfig.isAuthenticated, dashboardController.getDashboard);
 app.get("/dashboard/country/:id", passportConfig.isAuthenticated, dashboardController.getCountry);
 app.get("/sync", passportConfig.isAuthenticated,dashboardController.getSyncApi);
